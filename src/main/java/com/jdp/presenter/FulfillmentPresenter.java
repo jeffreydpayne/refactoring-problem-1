@@ -24,8 +24,7 @@ import com.jdp.presenter.types.CreditPresenter;
  * conflicts.  Adding values to enums rarely creates difficult merges.
  * 
  * When spring loads this class, it will automatically discover all implementations of the PaymentTypePresenter
- * interface in the classpath and we create a map where the presenters are keyed by their payment type in the post
- * construct method.
+ * interface in the classpath and we translate the collection of presenters into a map keyed by PaymentType.
  * 
  * Then all we have to do is look up the presenter for the PaymentType and invoke it.  If there is no payment type,
  * then in keeping with the spirit of the original class, we assume that the CreditPresenter is the default.
@@ -38,16 +37,14 @@ import com.jdp.presenter.types.CreditPresenter;
 public class FulfillmentPresenter {
     
     private Map<PaymentType, PaymentTypePresenter> presenterMap;
-    
-    @Autowired
-    private Collection<PaymentTypePresenter> presenters;
+
     
     @Autowired
     private CreditPresenter defaultPresenter;
     
     
-    @PostConstruct
-    public void initPresenterMap() {
+    @Autowired
+    public void setPresenters(Collection<PaymentTypePresenter> presenters) {
         
        presenterMap = new HashMap<>();
        
