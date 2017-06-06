@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+	mavenCentral()
     }
 
 }
@@ -28,10 +29,6 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-        
-     maven { url "http://nexus.pipelinecommerce.com:8081/repository/maven-public/" }
-}
 
 eclipse {
     project {
